@@ -8,11 +8,12 @@ author:
     affiliations:
       - name: "Institute for Applied Mathematics <br> Mauro Picone CNR"
   - name: "<img src='img/gemelli_logo.png' alt='Gemelli' style='height: 60px; vertical-align: middle;'/>Livia Lilli, Stefano Paternello"
-    email: 
+    email: livia.lilli\@policlinicogemelli.it, stefano.paternello\@gemelligenerator.it
     affiliations:
       - id: gemelli
-        name: " <br> Fondazione Policlinico Universitario <br> Agostino Gemelli IRCCS"
+        name: "Fondazione Policlinico Universitario <br> Agostino Gemelli IRCCS"
 logo: "img/iac_logo.jpeg"
+footer: "Granularity and Hybrid Modeling - Mario Santoro, Livia Lilli, Stefano Paternello - SDS 2026"
 format:
   revealjs:
     theme: white
@@ -27,7 +28,7 @@ format:
     height: 720
 ---
 
-## Premise {background-image="img/premise.png" background-size="cover" background-opacity=0.25}
+## Premise {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 
 - I will present a proposal for a design-first framework for explainable/interpretable use of AI in Italian EHR analysis.
@@ -43,7 +44,7 @@ format:
 :::
 
 
-## As Data Scientists of Textual Clinical Data, What Do We Owe Our Users?
+## As Data Scientists of Textual Clinical Data, What Do We Owe Our Users? {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### A Personal Reflection
 
@@ -67,7 +68,7 @@ Is F1-score enough?
 Is some "mega super score" from a benchmark leaderboard enough?
 :::
 
-## As Data Scientists, What Do We Owe Our Users?
+## As Data Scientists, What Do We Owe Our Users? {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### A Personal Reflection on Our Practice
 
@@ -77,7 +78,7 @@ Is some "mega super score" from a benchmark leaderboard enough?
 As scientists, we need to understand **WHY**!
 :::
 
-## The Research Question We Should Be Asking
+## The Research Question We Should Be Asking {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### Beyond Performance Metrics
 
@@ -95,7 +96,7 @@ Better accuracy on a specific task is **not enough** because we need to specify 
 | Model-centric selection | **Design-first framework** |
 :::
 
-## The Research Question We Should Be Asking
+## The Research Question We Should Be Asking {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### Beyond Performance Metrics
 
@@ -109,7 +110,7 @@ This starts from a more strict requirement: **understanding why**.
 ⚠️ **Honest admission:** We are not yet able to express this in mathematical terms. But we have a proposal to share.
 :::
 
-## Building a Model of Analysis
+## Building a Model of Analysis {.smaller background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### From Question to Framework (Recap)
 
@@ -127,7 +128,7 @@ This starts from a more strict requirement: **understanding why**.
 -   **Key Insight:** Even recent models (MedicalQwen, MedGemma) rely disproportionately on English training data, failing to capture local linguistic nuances as in Italian EHR (from bibliography at the end)
 :::
 
-## Building a Model of Analysis
+## Building a Model of Analysis {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### From Question to Framework
 
@@ -140,14 +141,14 @@ This starts from a more strict requirement: **understanding why**.
 -   Enable **clinical accountability/interpretability**
 :::
 
-## A Granularity Hierarchy for EHR Analysis
+## A Granularity Hierarchy for EHR Analysis {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### Four Analytical Units   
 
 ::::: columns
 ::: {.column width="30%"}
-```{mermaid}
 
+```{mermaid}
 flowchart TD
     A[Document<br/>Full clinical record] --> B[Section<br/>Header/blocks]
     B --> C[Sentence<br/>Propositional unit]
@@ -158,6 +159,7 @@ flowchart TD
     style C fill:#81d4fa
     style D fill:#4fc3f7
 ```
+
 :::
 
 ::: {.column width="70%"}
@@ -172,7 +174,7 @@ flowchart TD
 :::
 :::::
 
-## The Trade-off: Explainability vs. Semantic Risk
+## The Trade-off: Explainability vs. Semantic Risk {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### Semantic Corruption Risk
 
@@ -189,18 +191,20 @@ flowchart TD
 
 :::
 
-## The Trade-off: Explainability vs. Risk
+## The Trade-off: Explainability vs. Risk {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### Semantic Corruption Risk
 
 
 ::: {.fragment .fade-down}
 
-**Key Insight:** Granularity selection must be **RQ-dependent**. Optimal granularity = **Coarsest unit** that still satisfies the RQ's precision requirements minimizing the Semantic Corruption Risk.
+**Key Insight:** Granularity selection must be **RQ-dependent**. 
+
+Optimal granularity = **Coarsest unit** that still satisfies the RQ's precision requirements minimizing the Semantic Corruption Risk.
 
 :::
 
-## Hybrid Semantic Modeling Framework
+## Hybrid Semantic Modeling Framework {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### Architecture: Deterministic Rules + Few-Shot Neural Learning
 
@@ -228,7 +232,7 @@ flowchart TD
 :::
 :::::
 
-## Hybrid Semantic Modeling Framework
+## Hybrid Semantic Modeling Framework {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### Architecture: Deterministic Rules + Few-Shot Neural Learning
 
@@ -244,7 +248,7 @@ flowchart TD
 
 :::
 
-## Strategic Advantages
+## Strategic Advantages {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### Why Hybrid Architecture for Clinical Settings?
 
@@ -283,7 +287,7 @@ flowchart TD
 
 :::
 
-## Empirical Evidence
+## Empirical Evidence {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### From Design Choices to Measurable Outcomes
 
@@ -305,7 +309,7 @@ As showed in MISTIC and SBD the architectural advantages  translate directly to 
 
 :::
 
-## Empirical Evidence
+## Empirical Evidence {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### From Design Choices to Measurable Outcomes
 
@@ -332,7 +336,7 @@ As showed in MISTIC and SBD the architectural advantages  translate directly to 
 **Storage Requirement:** Logs should be stored in a **tamper-evident format** and retained per institutional data governance policies.
 ::: -->
 
-## What's Missing: The Mathematical Formulation
+## What's Missing: The Mathematical Formulation {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### A Call to Fellow Data Scientists
 
@@ -355,7 +359,7 @@ Our framework is conceptually sound and empirically validated. But it lacks a ri
 
 :::
 
-## What's Missing: The Mathematical Formulation
+## What's Missing: The Mathematical Formulation {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### A Call to Fellow Data Scientists
 
@@ -378,7 +382,7 @@ Our framework is conceptually sound and empirically validated. But it lacks a ri
 
 :::
 
-## Conclusion
+## Conclusion {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### Where We Are and Where We Need to Go
 
@@ -404,7 +408,7 @@ Our framework is conceptually sound and empirically validated. But it lacks a ri
 :::
 :::::
 
-## Conclusion
+## Conclusion {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### Where We Are and Where We Need to Go
 
@@ -425,7 +429,7 @@ Our framework is conceptually sound and empirically validated. But it lacks a ri
 
 :::
 
-## References {.smaller}
+## References {.smaller background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 \[1\] MedGemma Technical Report (2025)\
 \[2\] Badanin et al. - Cross-lingual LLM Benchmarking (2026)\
@@ -442,7 +446,7 @@ Our framework is conceptually sound and empirically validated. But it lacks a ri
 \[13\] Yao et al. - LLMs in Non-English Context, JMIR Medical Informatics (2025)\
 \[14\] Zhang et al. - MMTL-ClinicalBERT, Symmetry (2025)
 
-## Questions & Discussion
+## Questions & Discussion {background-image="img/back_CE.png" background-size="cover" background-opacity=0.25}
 
 ### Thank you for your attention!
 
