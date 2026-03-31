@@ -1,0 +1,467 @@
+---
+pagetitle: "Granularity and Hybrid Modeling"
+title: "Granularity and Hybrid Modeling"
+subtitle: "Proposal for Designing Explainable AI for Italian Electronic Health Records"
+author:
+  - name: "<img src='img/iac_logo.jpeg' alt='IAC-CNR' style='height: 60px; vertical-align: middle; margin-right: 20px;'/> Mario Santoro"
+    email: mario-santoro\@cnr.it
+    affiliations:
+      - name: "Institute for Applied Mathematics <br> Mauro Picone CNR"
+  - name: "<img src='img/gemelli_logo.png' alt='Gemelli' style='height: 60px; vertical-align: middle;'/>Livia Lilli, Stefano Paternello"
+    email: 
+    affiliations:
+      - id: gemelli
+        name: " <br> Fondazione Policlinico Universitario <br> Agostino Gemelli IRCCS"
+logo: "img/iac_logo.jpeg"
+format:
+  revealjs:
+    theme: white
+    transition: slide
+    slide-number: true
+    background-image: "img/back.png"
+    background-size: cover
+    background-opacity: 0.05
+    code-overflow: scroll
+    toc: false
+    width: 1280
+    height: 720
+---
+
+## Premise {background-image="img/premise.png" background-size="cover" background-opacity=0.25}
+
+
+- I will present a proposal for a design-first framework for explainable AI in Italian EHR analysis.
+
+- Generalization derived from our empirical works on sentence boundary detection (SBD) and the MISTIC framework for metastases classification on Italian EHRs.
+
+::: {.fragment .fade-in}
+
+- MISTIC  will means Lilli et al. - MISTIC, BMC Medical Informatics (2025) 
+
+- SBD will means Lilli et al. - Sentence Boundary Detection, IEEE ICHI (2025)
+
+:::
+
+
+## As Data Scientists of Textual Clinical Data, What Do We Owe Our Users?
+
+### A Personal Reflection
+
+::: callout-note
+**We work with textual data.** We build classifiers. We optimize metrics.
+
+But let me ask you something...
+:::
+
+::: fragment
+When we deliver a model to a clinician, a decision-maker, someone whose work affects **real people**...
+
+Is accuracy enough?
+:::
+
+::: fragment
+Is F1-score enough?
+:::
+
+::: fragment
+Is some "mega super score" from a benchmark leaderboard enough?
+:::
+
+## As Data Scientists, What Do We Owe Our Users?
+
+### A Personal Reflection on Our Practice
+
+::: fragment
+**We don't think so.**
+
+As scientists, we need to understand **WHY**!
+:::
+
+## The Research Question We Should Be Asking
+
+### Beyond Performance Metrics
+
+::: callout-important
+**It's not only a performance problem.**
+
+Better accuracy on a specific task is **not enough** because we need to specify **why** a prediction was made.
+:::
+
+::: {.fragment .fade-in-then-out}
+| What We Usually Ask | What We Should Ask |
+|--------------------------------------|----------------------------------|
+| "Which model is most accurate?" | "Which as small as possible text contribute to an accurate result?" |
+| Performance metrics only | Performance + **Accountability** + **Evidence Localization** |
+| Model-centric selection | **Design-first framework** |
+:::
+
+## The Research Question We Should Be Asking
+
+### Beyond Performance Metrics
+
+::: {.fragment .fade-in}
+**Our position:** We need to build a **model of analysis**, not just a classifier.
+
+This starts from a more strict requirement: **understanding why**.
+:::
+
+::: {.fragment .fade-down}
+⚠️ **Honest admission:** We are not yet able to express this in mathematical terms. But we have a proposal to share.
+:::
+
+## Building a Model of Analysis
+
+### From Question to Framework (Recap)
+
+**The Problem**
+
+-   Black Box models = opacity
+-   Model depth correlates with **opacity**, not transparency (bibliography at the end)
+
+::: {.fragment .fade-in}
+-   Italian EHRs lack specialized LLMs
+-   No abundant annotated corpora
+:::
+
+::: {.fragment .fade-in}
+-   **Key Insight:** Even recent models (MedicalQwen, MedGemma) rely disproportionately on English training data, failing to capture local linguistic nuances as in Italian EHR (bibliography at the end)
+:::
+
+## Building a Model of Analysis
+
+### From Question to Framework
+
+**Our Response**
+
+-   Shift from model selection to **system design**
+
+::: {.fragment .fade-left}
+-   Focus on **precise evidence localization**
+-   Enable **clinical accountability**
+:::
+
+## A Granularity Hierarchy for EHR Analysis
+
+### Four Analytical Units   
+
+::::: columns
+::: {.column width="30%"}
+```{mermaid}
+
+flowchart TD
+    A[Document<br/>Full clinical record] --> B[Section<br/>Header/blocks]
+    B --> C[Sentence<br/>Propositional unit]
+    C --> D[Sub-sentence<br/>Entity/relation]
+    
+    style A fill:#e1f5fe
+    style B fill:#b3e5fc
+    style C fill:#81d4fa
+    style D fill:#4fc3f7
+```
+:::
+
+::: {.column width="70%"}
+<!-- ::: {.callout-note} -->
+
+1.  **Document:** Complete clinical record (discharge summary, referral letter)
+2.  **Section/Subdocument:** Logical semantic blocks (Anamnesis, Therapy, Diagnosis). You can iterate on sub-subdocuments as many time as possible until step 3.\
+3.  **Sentence:** Grammatical sentence with complete clinical proposition
+4.  **Sub-sentence:** Phrasal units, entities, relations (drug names, symptoms, negation scopes)
+
+<!-- ::: -->
+:::
+:::::
+
+## The Trade-off: Explainability vs. Semantic Risk
+
+### Semantic Corruption Risk
+
+**Definition:** The risk that isolating a specific text unit results in the loss of essential clinical meaning.
+
+::: {.fragment .fade-in}
+
+| Level        | Unit               | Explainability | Corruption Risk (empirically estimated)|
+|--------------|--------------------|----------------|-----------------|
+| Document     | Full report        | Low            | Low             |
+| Section      | Header/block       | Medium         | Low-Medium      |
+| Sentence     | Propositional unit | **High**       | **Medium**      |
+| Sub-sentence | Entity/relation    | High           | **High**        |
+
+:::
+
+## The Trade-off: Explainability vs. Risk
+
+### Semantic Corruption Risk
+
+::: callout-tip
+
+**Two Proposed Measurable Proxies:** 
+
+1. **Performance Degradation Index** – Relative F1-score drop across granularity levels 
+
+2. **Token Truncation Rate** – % of inputs exceeding model token limits (MISTIC: 24.85% of full EHRs exceed 512 tokens vs. 0.02% of sentences) 
+
+
+:::
+
+::: {.fragment .fade-down}
+
+**Key Insight:** Granularity selection must be **RQ-dependent**. Optimal granularity = **Coarsest unit** that still satisfies the RQ's precision requirements minimizing the Semantic Coruuption Risk.
+
+:::
+
+## Hybrid Semantic Modeling Framework
+
+### Architecture: Deterministic Rules + Few-Shot Neural Learning
+
+::::: columns
+::: {.column width="50%"}
+
+**Deterministic Rules** 
+
+- Structural parsing 
+- Section boundary detection 
+- Explicit pattern matching 
+- Example: MISTIC framework -> few words for sentences selection
+
+:::
+
+::: {.column width="50%"}
+
+**Deep Learning** 
+
+- Semantic understanding 
+- Contextual classification 
+- Few-shot adaptation 
+- Bounded to specific tasks: in MISTIC affirmation/negation detection for metastases classification
+
+:::
+:::::
+
+## Hybrid Semantic Modeling Framework
+
+### Architecture: Deterministic Rules + Few-Shot Neural Learning
+
+::: callout-note
+
+**How It Works:** A sentence-level rule first isolates candidate phrases, then deep learning assesses their negation or affirmation (e.g., metastases classification).
+
+:::
+
+::: {.fragment .fade-in}
+
+**Benefit:** This separation directly **reduces Semantic Corruption Risk** by preserving syntactic context.
+
+:::
+
+## Strategic Advantages
+
+### Why Hybrid Architecture for Clinical Settings?
+
+::: {.fragment .fade-down}
+
+**1. Resource Efficiency** 🖥️ 
+
+- Rules execute on **CPUs** with negligible latency 
+- Deep learning invoked **sparingly** 
+- Enables **on-premise deployment** on privacy-preserving hospital servers
+
+:::
+
+::: {.fragment .fade-right}
+
+**2. Agile Adaptability** 🔄 
+
+- Rule-based layer: **Instant updates** for new terms without retraining 
+- Few-shot component: adapts to nuanced usage with **minimal examples** 
+- Handles institution-specific jargon dynamically
+
+:::
+
+
+## Strategic Advantages
+
+### Why Hybrid Architecture for Clinical Settings?
+
+::: {.fragment .fade-left}
+
+**3. Enhanced Interpretability** 🔍 
+
+- Rule decisions are **inherently transparent** 
+- Neural inferences **strictly bounded** to defined semantic tasks 
+- Supported by attention visualizations or few-shot exemplars
+
+:::
+
+## Empirical Evidence
+
+### From Design Choices to Measurable Outcomes
+
+::: callout-info
+
+As showed in MISTIC and SBD the architectural advantages  translate directly to measurable performance and efficiency gains in real-world deployments.
+
+:::
+
+::: {.fragment .fade-in}
+
+| Configuration                        | F1        | Compute      |
+|--------------------------------------|-----------|--------------|
+| Document + LLM-only (MISTIC)            | 0.825     | GPU required |
+| Document + Rule-only (MISTIC)           | 0.816     | CPU inference     |
+| **Sentence + Hybrid (MISTIC)**  | **0.912** | CPU training + inference  |
+| **Sentence + Hybrid (SBD)**     | **0.92**  | CPU inference     |
+| Document + Hybrid (SBD)         | 0.88      | CPU inference     |
+
+:::
+
+## Empirical Evidence
+
+### From Design Choices to Measurable Outcomes
+
+::: callout-success
+
+**Key Finding in MISTIC:** Sentence-level hybrid architectures **outperform** document-level LLM-only approaches in evidence precision (F1: 0.92 vs 0.825) while **eliminating GPU dependency**.
+
+:::
+
+## Clinical Auditability & Compliance
+
+### Proposed Audit Artifacts for Every Prediction
+
+| Artifact | Description |
+|-------------------------------|----------------------------------------|
+| **Evidence Log** | Exact text span(s) that triggered prediction, with character offsets |
+| **Rule Version** | Version hash of rule-based component at inference time |
+| **Few-Shot Exemplars** | Specific training examples that influenced the LLM decision |
+| **Confidence Score** | Calibrated probability with abstention flag if below threshold |
+| **Timestamp & User ID** | For traceability in clinical workflows |
+
+::: fragment
+
+**Storage Requirement:** Logs should be stored in a **tamper-evident format** and retained per institutional data governance policies.
+:::
+
+## What's Missing: The Mathematical Formulation
+
+### A Call to Fellow Data Scientists
+
+::: callout-important
+
+**We need to be honest about what we haven't done yet.**
+
+Our framework is conceptually sound and empirically validated. But it lacks a rigorous mathematical formulation.
+:::
+
+**What We Need to Formalize:**
+
+::: fragment
+
+1.  **Granularity as a measurable quantity** – Can we define granularity levels mathematically?
+
+:::
+
+::: fragment
+
+2.  **Semantic Corruption Risk as a function** – What are the proper measures and constraints?
+
+:::
+
+::: fragment
+
+3.  **Optimality conditions** – Given an RQ, can we prove which granularity is optimal?
+
+:::
+
+::: fragment
+
+4.  **Trade-off curves** – Can we express the explainability-risk balance formally?
+
+:::
+
+
+## Conclusion
+
+### Where We Are and Where We Need to Go
+
+::::: columns
+::: {.column width="50%"}
+
+**What We Proposed** 
+
+- Granularity as RQ-dependent design choice 
+- Hybrid semantic framework (rules + neural) 
+- Pragmatic alternative to "black box" paradigm - Audit artifacts for accountability
+
+:::
+
+::: {.column width="50%"}
+**What We Still Need** 
+
+- **Mathematical formulation** of the procedure 
+- Proper **measures and constraints** 
+- Community benchmarking on Italian EHRs 
+- Impact evaluation on trust and outcomes
+
+:::
+:::::
+
+## Conclusion
+
+### Where We Are and Where We Need to Go
+
+::: callout-important
+
+**Clinical RQs require more than just accuracy:**
+
+✅ **Transparency** – Direct tracing of predictions to evidence spans\
+✅ **Adaptability** – Rapid response to local context and jargon\
+✅ **Accountability** – Verifiable evidence logs for clinical audit\
+✅ **Efficiency** – Feasible deployment in resource-constrained settings
+
+:::
+
+::: fragment
+
+**Open to collaborate:** Join us in formalizing this framework. Because as data scientists, we owe our users more than black boxes.
+
+:::
+
+## Questions & Discussion
+
+### Contact
+
+**Mario Santoro**\
+Institute for Applied Mathematics "Mauro Picone"\
+Italian National Research Council (CNR)
+
+📧 mario-santoro\@cnr.it\
+🔗 https://baltig.cnr.it/mario-santoro/sds2026
+
+## References
+
+\[1\] MedGemma Technical Report (2025)\
+\[2\] Badanin et al. - Cross-lingual LLM Benchmarking (2026)\
+\[3\] Foppen et al. - Token-level Attribution for Biomedical AI (2026)\
+\[4\] Huang et al. - ClinicalBERT (2019)\
+\[5\] Medical Qwen3 - TechRxiv (2025)\
+\[6\] Lilli et al. - Sentence Boundary Detection, IEEE ICHI (2025)\
+\[7\] Lilli et al. - MISTIC, BMC Medical Informatics (2025)\
+\[8\] Magnini et al. - Medical Dataset Scarcity (2025)\
+\[9\] Miok et al. - Trustworthy Clinical Text Explanations (2025)\
+\[10\] Novikova et al. - LLM Consistency (2025)\
+\[11\] Shaitarova et al. - Medical NLP Survey (2023)\
+\[12\] Xie et al. - Hybrid NLP for Asthma Detection, JMIR AI (2024)\
+\[13\] Yao et al. - LLMs in Non-English Context, JMIR Medical Informatics (2025)\
+\[14\] Zhang et al. - MMTL-ClinicalBERT, Symmetry (2025)
+
+```{=html}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const slides = document.querySelectorAll('.reveal .slide');
+  slides.forEach(slide => {
+    slide.style.backgroundBlendMode = 'overlay';
+  });
+});
+</script>
+```
