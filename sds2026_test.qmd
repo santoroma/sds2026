@@ -30,15 +30,15 @@ format:
 ## Premise {background-image="img/premise.png" background-size="cover" background-opacity=0.25}
 
 
-- I will present a proposal for a design-first framework for explainable AI in Italian EHR analysis.
+- I will present a proposal for a design-first framework for explainable/interpreitable use of AI in Italian EHR analysis.
 
 - Generalization derived from our empirical works on sentence boundary detection (SBD) and the MISTIC framework for metastases classification on Italian EHRs.
 
 ::: {.fragment .fade-in}
 
-- MISTIC  will means Lilli et al. - MISTIC, BMC Medical Informatics (2025) 
+- **MISTIC**  will means Lilli et al. - MISTIC: a novel approach for metastasis classification in Italian electronic health records using transformers, BMC Medical Informatics (2025) 
 
-- SBD will means Lilli et al. - Sentence Boundary Detection, IEEE ICHI (2025)
+- **SBD** will means Lilli et al. - Improving Clinical Report Classification with Sentence Boundary Detection, IEEE ICHI (2025)
 
 :::
 
@@ -116,7 +116,7 @@ This starts from a more strict requirement: **understanding why**.
 **The Problem**
 
 -   Black Box models = opacity
--   Model depth correlates with **opacity**, not transparency (bibliography at the end)
+-   Model depth correlates with **opacity**, not transparency (from bibliography at the end)
 
 ::: {.fragment .fade-in}
 -   Italian EHRs lack specialized LLMs
@@ -124,7 +124,7 @@ This starts from a more strict requirement: **understanding why**.
 :::
 
 ::: {.fragment .fade-in}
--   **Key Insight:** Even recent models (MedicalQwen, MedGemma) rely disproportionately on English training data, failing to capture local linguistic nuances as in Italian EHR (bibliography at the end)
+-   **Key Insight:** Even recent models (MedicalQwen, MedGemma) rely disproportionately on English training data, failing to capture local linguistic nuances as in Italian EHR (from bibliography at the end)
 :::
 
 ## Building a Model of Analysis
@@ -137,7 +137,7 @@ This starts from a more strict requirement: **understanding why**.
 
 ::: {.fragment .fade-left}
 -   Focus on **precise evidence localization**
--   Enable **clinical accountability**
+-   Enable **clinical accountability/interpretability**
 :::
 
 ## A Granularity Hierarchy for EHR Analysis
@@ -164,7 +164,7 @@ flowchart TD
 <!-- ::: {.callout-note} -->
 
 1.  **Document:** Complete clinical record (discharge summary, referral letter)
-2.  **Section/Subdocument:** Logical semantic blocks (Anamnesis, Therapy, Diagnosis). You can iterate on sub-subdocuments as many time as possible until step 3.\
+2.  **Section/Subdocument:** Logical semantic blocks (Anamnesis, Therapy, Diagnosis). You can iterate on sub-subdocuments as many time as possible until step 3.
 3.  **Sentence:** Grammatical sentence with complete clinical proposition
 4.  **Sub-sentence:** Phrasal units, entities, relations (drug names, symptoms, negation scopes)
 
@@ -180,7 +180,7 @@ flowchart TD
 
 ::: {.fragment .fade-in}
 
-| Level        | Unit               | Explainability | Corruption Risk (empirically estimated)|
+| Level        | Unit               | Explainability | Semantic Corruption Risk (empirically derived)|
 |--------------|--------------------|----------------|-----------------|
 | Document     | Full report        | Low            | Low             |
 | Section      | Header/block       | Medium         | Low-Medium      |
@@ -244,7 +244,7 @@ flowchart TD
 
 ::: callout-note
 
-**How It Works:** A sentence-level rule first isolates candidate phrases, then deep learning assesses their negation or affirmation (e.g., metastases classification).
+**How It Works:** A sentence-level rule first isolates candidate phrases, then deep learning assesses their negation or affirmation (as in MISTIC for metastases classification).
 
 :::
 
@@ -325,30 +325,28 @@ As showed in MISTIC and SBD the architectural advantages  translate directly to 
 
 :::
 
-## Clinical Auditability & Compliance
+<!-- ## Clinical Auditability & Compliance
 
 ### Proposed Audit Artifacts for Every Prediction
 
 | Artifact | Description |
 |-------------------------------|----------------------------------------|
-| **Evidence Log** | Exact text span(s) that triggered prediction, with character offsets |
+| **Evidence Log** | Exact text span(s) that triggered prediction |
 | **Rule Version** | Version hash of rule-based component at inference time |
-| **Few-Shot Exemplars** | Specific training examples that influenced the LLM decision |
+| **Few-Shot Exemplars** | Specific training examples that influenced the neural decision |
 | **Confidence Score** | Calibrated probability with abstention flag if below threshold |
 | **Timestamp & User ID** | For traceability in clinical workflows |
 
 ::: fragment
 
 **Storage Requirement:** Logs should be stored in a **tamper-evident format** and retained per institutional data governance policies.
-:::
+::: -->
 
 ## What's Missing: The Mathematical Formulation
 
 ### A Call to Fellow Data Scientists
 
 ::: callout-important
-
-**We need to be honest about what we haven't done yet.**
 
 Our framework is conceptually sound and empirically validated. But it lacks a rigorous mathematical formulation.
 :::
@@ -391,7 +389,8 @@ Our framework is conceptually sound and empirically validated. But it lacks a ri
 
 - Granularity as RQ-dependent design choice 
 - Hybrid semantic framework (rules + neural) 
-- Pragmatic alternative to "black box" paradigm - Audit artifacts for accountability
+- Pragmatic alternative to "black box" paradigm 
+- Audit artifacts for accountability
 
 :::
 
@@ -436,7 +435,7 @@ Institute for Applied Mathematics "Mauro Picone"\
 Italian National Research Council (CNR)
 
 📧 mario-santoro\@cnr.it\
-🔗 https://baltig.cnr.it/mario-santoro/sds2026
+🔗 https://github.com/santoroma/sds2026
 
 ## References
 

@@ -160,13 +160,13 @@
 <section id="premise" class="slide level2" data-background-image="img/premise.png" data-background-size="cover" data-background-opacity="0.25">
 <h2>Premise</h2>
 <ul>
-<li><p>I will present a proposal for a design-first framework for explainable AI in Italian EHR analysis.</p></li>
+<li><p>I will present a proposal for a design-first framework for explainable/interpreitable use of AI in Italian EHR analysis.</p></li>
 <li><p>Generalization derived from our empirical works on sentence boundary detection (SBD) and the MISTIC framework for metastases classification on Italian EHRs.</p></li>
 </ul>
 <div class="fragment fade-in">
 <ul>
-<li><p>MISTIC will means Lilli et al.&nbsp;- MISTIC, BMC Medical Informatics (2025)</p></li>
-<li><p>SBD will means Lilli et al.&nbsp;- Sentence Boundary Detection, IEEE ICHI (2025)</p></li>
+<li><p><strong>MISTIC</strong> will means Lilli et al.&nbsp;- MISTIC: a novel approach for metastasis classification in Italian electronic health records using transformers, BMC Medical Informatics (2025)</p></li>
+<li><p><strong>SBD</strong> will means Lilli et al.&nbsp;- Improving Clinical Report Classification with Sentence Boundary Detection, IEEE ICHI (2025)</p></li>
 </ul>
 </div>
 </section>
@@ -269,7 +269,7 @@
 <p><strong>The Problem</strong></p>
 <ul>
 <li>Black Box models = opacity</li>
-<li>Model depth correlates with <strong>opacity</strong>, not transparency (bibliography at the end)</li>
+<li>Model depth correlates with <strong>opacity</strong>, not transparency (from bibliography at the end)</li>
 </ul>
 <div class="fragment fade-in">
 <ul>
@@ -279,7 +279,7 @@
 </div>
 <div class="fragment fade-in">
 <ul>
-<li><strong>Key Insight:</strong> Even recent models (MedicalQwen, MedGemma) rely disproportionately on English training data, failing to capture local linguistic nuances as in Italian EHR (bibliography at the end)</li>
+<li><strong>Key Insight:</strong> Even recent models (MedicalQwen, MedGemma) rely disproportionately on English training data, failing to capture local linguistic nuances as in Italian EHR (from bibliography at the end)</li>
 </ul>
 </div>
 </section>
@@ -293,7 +293,7 @@
 <div class="fragment fade-left">
 <ul>
 <li>Focus on <strong>precise evidence localization</strong></li>
-<li>Enable <strong>clinical accountability</strong></li>
+<li>Enable <strong>clinical accountability/interpretability</strong></li>
 </ul>
 </div>
 </section>
@@ -326,8 +326,7 @@
 <!-- ::: {.callout-note} -->
 <ol type="1">
 <li><strong>Document:</strong> Complete clinical record (discharge summary, referral letter)</li>
-<li><strong>Section/Subdocument:</strong> Logical semantic blocks (Anamnesis, Therapy, Diagnosis). You can iterate on sub-subdocuments as many time as possible until step 3.<br>
-</li>
+<li><strong>Section/Subdocument:</strong> Logical semantic blocks (Anamnesis, Therapy, Diagnosis). You can iterate on sub-subdocuments as many time as possible until step 3.</li>
 <li><strong>Sentence:</strong> Grammatical sentence with complete clinical proposition</li>
 <li><strong>Sub-sentence:</strong> Phrasal units, entities, relations (drug names, symptoms, negation scopes)</li>
 </ol>
@@ -351,7 +350,7 @@
 <th>Level</th>
 <th>Unit</th>
 <th>Explainability</th>
-<th>Corruption Risk (empirically estimated)</th>
+<th>Semantic Corruption Risk (empirically derived)</th>
 </tr>
 </thead>
 <tbody>
@@ -395,16 +394,15 @@
 <p><strong>Tip</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>Three Proposed Measurable Proxies:</strong></p>
+<p><strong>Two Proposed Measurable Proxies:</strong></p>
 <ol type="1">
 <li><p><strong>Performance Degradation Index</strong> – Relative F1-score drop across granularity levels</p></li>
-<li><p><strong>Token Truncation Rate</strong> – % of inputs exceeding model token limits (MISTIC: 24.85% of EHRs exceed 512 tokens vs.&nbsp;0.02% of sentences)</p></li>
-<li><p><strong>Rationale Overlap Score</strong> – Intersection-over-union between model-attended spans and clinician-annotated evidence</p></li>
+<li><p><strong>Token Truncation Rate</strong> – % of inputs exceeding model token limits (MISTIC: 24.85% of full EHRs exceed 512 tokens vs.&nbsp;0.02% of sentences)</p></li>
 </ol>
 </div>
 </div>
 </div>
-<div class="fragment">
+<div class="fragment fade-down">
 <p><strong>Key Insight:</strong> Granularity selection must be <strong>RQ-dependent</strong>. Optimal granularity = <strong>Coarsest unit</strong> that still satisfies the RQ’s precision requirements minimizing the Semantic Coruuption Risk.</p>
 </div>
 </section>
@@ -413,10 +411,26 @@
 <h3 id="architecture-deterministic-rules-few-shot-neural-learning">Architecture: Deterministic Rules + Few-Shot Neural Learning</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><strong>Deterministic Rules</strong> - Structural parsing - Section boundary detection - Explicit pattern matching - Example: MISTIC framework [7]</p>
+<p><strong>Deterministic Rules</strong></p>
+<ul>
+<li>Structural parsing</li>
+<li>Section boundary detection</li>
+<li>Explicit pattern matching</li>
+<li>Example: MISTIC framework -&gt; few words for sentences selection</li>
+</ul>
 </div><div class="column" style="width:50%;">
-<p><strong>Neural Learning</strong> - Semantic understanding - Contextual classification - Few-shot adaptation - Bounded to specific tasks</p>
+<p><strong>Deep Learning</strong></p>
+<ul>
+<li>Semantic understanding</li>
+<li>Contextual classification</li>
+<li>Few-shot adaptation</li>
+<li>Bounded to specific tasks: in MISTIC affirmation/negation detection for metastases classification</li>
+</ul>
 </div></div>
+</section>
+<section id="hybrid-semantic-modeling-framework-1" class="slide level2">
+<h2>Hybrid Semantic Modeling Framework</h2>
+<h3 id="architecture-deterministic-rules-few-shot-neural-learning-1">Architecture: Deterministic Rules + Few-Shot Neural Learning</h3>
 <div class="callout callout-note callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -426,18 +440,18 @@
 <p><strong>Note</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>How It Works:</strong> A sentence-level rule first isolates candidate phrases, then deep learning assesses their negation or affirmation (e.g., metastases classification).</p>
+<p><strong>How It Works:</strong> A sentence-level rule first isolates candidate phrases, then deep learning assesses their negation or affirmation (as in MISTIC for metastases classification).</p>
 </div>
 </div>
 </div>
-<div class="fragment">
+<div class="fragment fade-in">
 <p><strong>Benefit:</strong> This separation directly <strong>reduces Semantic Corruption Risk</strong> by preserving syntactic context.</p>
 </div>
 </section>
 <section id="strategic-advantages" class="slide level2">
 <h2>Strategic Advantages</h2>
 <h3 id="why-hybrid-architecture-for-clinical-settings">Why Hybrid Architecture for Clinical Settings?</h3>
-<div class="fragment">
+<div class="fragment fade-down">
 <p><strong>1. Resource Efficiency</strong> 🖥️</p>
 <ul>
 <li>Rules execute on <strong>CPUs</strong> with negligible latency</li>
@@ -445,15 +459,19 @@
 <li>Enables <strong>on-premise deployment</strong> on privacy-preserving hospital servers</li>
 </ul>
 </div>
-<div class="fragment">
+<div class="fragment fade-right">
 <p><strong>2. Agile Adaptability</strong> 🔄</p>
 <ul>
 <li>Rule-based layer: <strong>Instant updates</strong> for new terms without retraining</li>
-<li>Few-shot component: Adapts to nuanced usage with <strong>minimal examples</strong></li>
+<li>Few-shot component: adapts to nuanced usage with <strong>minimal examples</strong></li>
 <li>Handles institution-specific jargon dynamically</li>
 </ul>
 </div>
-<div class="fragment">
+</section>
+<section id="strategic-advantages-1" class="slide level2">
+<h2>Strategic Advantages</h2>
+<h3 id="why-hybrid-architecture-for-clinical-settings-1">Why Hybrid Architecture for Clinical Settings?</h3>
+<div class="fragment fade-left">
 <p><strong>3. Enhanced Interpretability</strong> 🔍</p>
 <ul>
 <li>Rule decisions are <strong>inherently transparent</strong></li>
@@ -466,10 +484,15 @@
 <h2>Empirical Evidence</h2>
 <h3 id="from-design-choices-to-measurable-outcomes">From Design Choices to Measurable Outcomes</h3>
 <div class="callout-info">
-<p><strong>Conceptual Bridge:</strong> The architectural advantages translate directly to measurable performance and efficiency gains in real-world deployments.</p>
+<p>As showed in MISTIC and SBD the architectural advantages translate directly to measurable performance and efficiency gains in real-world deployments.</p>
 </div>
-<p><strong>Table: Empirical Comparison Across Configurations</strong> [6, 7]</p>
-<table class="caption-top">
+<div class="fragment fade-in">
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 60%">
+<col style="width: 17%">
+<col style="width: 22%">
+</colgroup>
 <thead>
 <tr class="header">
 <th>Configuration</th>
@@ -479,89 +502,56 @@
 </thead>
 <tbody>
 <tr class="odd">
-<td>Document + LLM-only [7]</td>
+<td>Document + LLM-only (MISTIC)</td>
 <td>0.825</td>
 <td>GPU required</td>
 </tr>
 <tr class="even">
-<td>Document + Rule-only [7]</td>
+<td>Document + Rule-only (MISTIC)</td>
 <td>0.816</td>
-<td>CPU only</td>
+<td>CPU inference</td>
 </tr>
 <tr class="odd">
-<td><strong>Sentence + Hybrid (MISTIC)</strong> [7]</td>
+<td><strong>Sentence + Hybrid (MISTIC)</strong></td>
 <td><strong>0.912</strong></td>
-<td>CPU training</td>
+<td>CPU training + inference</td>
 </tr>
 <tr class="even">
-<td><strong>Sentence + Hybrid (SBD)</strong> [6]</td>
+<td><strong>Sentence + Hybrid (SBD)</strong></td>
 <td><strong>0.92</strong></td>
-<td>CPU only</td>
+<td>CPU inference</td>
 </tr>
 <tr class="odd">
-<td>Document + Hybrid (SBD) [6]</td>
+<td>Document + Hybrid (SBD)</td>
 <td>0.88</td>
-<td>CPU only</td>
+<td>CPU inference</td>
 </tr>
 </tbody>
 </table>
-<div class="callout-success">
-<p><strong>Key Finding:</strong> Sentence-level hybrid architectures <strong>outperform</strong> document-level LLM-only approaches in evidence precision (F1: 0.92 vs 0.825) while <strong>eliminating GPU dependency</strong>.</p>
 </div>
 </section>
-<section id="clinical-auditability-compliance" class="slide level2">
-<h2>Clinical Auditability &amp; Compliance</h2>
-<h3 id="proposed-audit-artifacts-for-every-prediction">Proposed Audit Artifacts for Every Prediction</h3>
-<div class="callout callout-warning callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="empirical-evidence-1" class="slide level2">
+<h2>Empirical Evidence</h2>
+<h3 id="from-design-choices-to-measurable-outcomes-1">From Design Choices to Measurable Outcomes</h3>
+<div class="callout-success">
+<p><strong>Key Finding in MISTIC:</strong> Sentence-level hybrid architectures <strong>outperform</strong> document-level LLM-only approaches in evidence precision (F1: 0.92 vs 0.825) while <strong>eliminating GPU dependency</strong>.</p>
 </div>
-<p><strong>Warning</strong></p>
-</div>
-<div class="callout-content">
-<p>⚠️ <strong>This is a proposal</strong> – These artifacts are envisioned for future deployments to meet EU/Italian regulatory requirements (GDPR, Medical Device Regulation).</p>
-</div>
-</div>
-</div>
-<table class="caption-top">
-<colgroup>
-<col style="width: 43%">
-<col style="width: 56%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Artifact</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Evidence Log</strong></td>
-<td>Exact text span(s) that triggered prediction, with character offsets</td>
-</tr>
-<tr class="even">
-<td><strong>Rule Version</strong></td>
-<td>Version hash of rule-based component at inference time</td>
-</tr>
-<tr class="odd">
-<td><strong>Few-Shot Exemplars</strong></td>
-<td>Specific training examples that influenced the LLM decision</td>
-</tr>
-<tr class="even">
-<td><strong>Confidence Score</strong></td>
-<td>Calibrated probability with abstention flag if below threshold</td>
-</tr>
-<tr class="odd">
-<td><strong>Timestamp &amp; User ID</strong></td>
-<td>For traceability in clinical workflows</td>
-</tr>
-</tbody>
-</table>
-<div class="fragment">
-<p><strong>Storage Requirement:</strong> Logs should be stored in a <strong>tamper-evident format</strong> and retained per institutional data governance policies.</p>
-</div>
+<!-- ## Clinical Auditability & Compliance
+
+### Proposed Audit Artifacts for Every Prediction
+
+| Artifact | Description |
+|-------------------------------|----------------------------------------|
+| **Evidence Log** | Exact text span(s) that triggered prediction |
+| **Rule Version** | Version hash of rule-based component at inference time |
+| **Few-Shot Exemplars** | Specific training examples that influenced the neural decision |
+| **Confidence Score** | Calibrated probability with abstention flag if below threshold |
+| **Timestamp & User ID** | For traceability in clinical workflows |
+
+::: fragment
+
+**Storage Requirement:** Logs should be stored in a **tamper-evident format** and retained per institutional data governance policies.
+::: -->
 </section>
 <section id="whats-missing-the-mathematical-formulation" class="slide level2">
 <h2>What’s Missing: The Mathematical Formulation</h2>
@@ -575,7 +565,6 @@
 <p><strong>Important</strong></p>
 </div>
 <div class="callout-content">
-<p><strong>We need to be honest about what we haven’t done yet.</strong></p>
 <p>Our framework is conceptually sound and empirically validated. But it lacks a rigorous mathematical formulation.</p>
 </div>
 </div>
@@ -601,19 +590,6 @@
 <li><strong>Trade-off curves</strong> – Can we express the explainability-risk balance formally?</li>
 </ol>
 </div>
-<div class="callout callout-note callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Note</strong></p>
-</div>
-<div class="callout-content">
-<p><strong>This is where we need your help.</strong> As a community of data scientists, we should work together to formalize these intuitions into proper mathematical terms.</p>
-</div>
-</div>
-</div>
 </section>
 <section id="conclusion" class="slide level2">
 <h2>Conclusion</h2>
@@ -624,16 +600,22 @@
 <ul>
 <li>Granularity as RQ-dependent design choice</li>
 <li>Hybrid semantic framework (rules + neural)</li>
-<li>Pragmatic alternative to “black box” paradigm - Audit artifacts for accountability</li>
+<li>Pragmatic alternative to “black box” paradigm</li>
+<li>Audit artifacts for accountability</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><strong>What We Still Need</strong></p>
 <ul>
 <li><strong>Mathematical formulation</strong> of the procedure</li>
 <li>Proper <strong>measures and constraints</strong></li>
-<li>Community benchmarking on Italian EHRs - Impact evaluation on trust and outcomes</li>
+<li>Community benchmarking on Italian EHRs</li>
+<li>Impact evaluation on trust and outcomes</li>
 </ul>
 </div></div>
+</section>
+<section id="conclusion-1" class="slide level2">
+<h2>Conclusion</h2>
+<h3 id="where-we-are-and-where-we-need-to-go-1">Where We Are and Where We Need to Go</h3>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -652,7 +634,7 @@
 </div>
 </div>
 <div class="fragment">
-<p><strong>Our invitation:</strong> Join us in formalizing this framework. Because as data scientists, we owe our users more than black boxes.</p>
+<p><strong>Open to collaborate:</strong> Join us in formalizing this framework. Because as data scientists, we owe our users more than black boxes.</p>
 </div>
 </section>
 <section id="questions-discussion" class="slide level2">
@@ -662,7 +644,7 @@
 Institute for Applied Mathematics “Mauro Picone”<br>
 Italian National Research Council (CNR)</p>
 <p>📧 mario-santoro@cnr.it<br>
-🔗 https://baltig.cnr.it/mario-santoro/sds2026</p>
+🔗 https://github.com/santoroma/sds2026</p>
 </section>
 <section id="references" class="slide level2">
 <h2>References</h2>
