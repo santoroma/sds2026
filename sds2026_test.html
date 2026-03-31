@@ -160,7 +160,7 @@
 <section id="premise" class="slide level2" data-background-image="img/premise.png" data-background-size="cover" data-background-opacity="0.25">
 <h2>Premise</h2>
 <ul>
-<li><p>I will present a proposal for a design-first framework for explainable/interpreitable use of AI in Italian EHR analysis.</p></li>
+<li><p>I will present a proposal for a design-first framework for explainable/interpretable use of AI in Italian EHR analysis.</p></li>
 <li><p>Generalization derived from our empirical works on sentence boundary detection (SBD) and the MISTIC framework for metastases classification on Italian EHRs.</p></li>
 </ul>
 <div class="fragment fade-in">
@@ -350,7 +350,7 @@
 <th>Level</th>
 <th>Unit</th>
 <th>Explainability</th>
-<th>Semantic Corruption Risk (empirically derived)</th>
+<th>Semantic Corruption Risk</th>
 </tr>
 </thead>
 <tbody>
@@ -385,25 +385,8 @@
 <section id="the-trade-off-explainability-vs.-risk" class="slide level2">
 <h2>The Trade-off: Explainability vs.&nbsp;Risk</h2>
 <h3 id="semantic-corruption-risk-1">Semantic Corruption Risk</h3>
-<div class="callout callout-tip callout-titled callout-style-default">
-<div class="callout-body">
-<div class="callout-title">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<p><strong>Tip</strong></p>
-</div>
-<div class="callout-content">
-<p><strong>Two Proposed Measurable Proxies:</strong></p>
-<ol type="1">
-<li><p><strong>Performance Degradation Index</strong> – Relative F1-score drop across granularity levels</p></li>
-<li><p><strong>Token Truncation Rate</strong> – % of inputs exceeding model token limits (MISTIC: 24.85% of full EHRs exceed 512 tokens vs.&nbsp;0.02% of sentences)</p></li>
-</ol>
-</div>
-</div>
-</div>
 <div class="fragment fade-down">
-<p><strong>Key Insight:</strong> Granularity selection must be <strong>RQ-dependent</strong>. Optimal granularity = <strong>Coarsest unit</strong> that still satisfies the RQ’s precision requirements minimizing the Semantic Coruuption Risk.</p>
+<p><strong>Key Insight:</strong> Granularity selection must be <strong>RQ-dependent</strong>. Optimal granularity = <strong>Coarsest unit</strong> that still satisfies the RQ’s precision requirements minimizing the Semantic Corruption Risk.</p>
 </div>
 </section>
 <section id="hybrid-semantic-modeling-framework" class="slide level2">
@@ -580,6 +563,24 @@
 <li><strong>Semantic Corruption Risk as a function</strong> – What are the proper measures and constraints?</li>
 </ol>
 </div>
+</section>
+<section id="whats-missing-the-mathematical-formulation-1" class="slide level2">
+<h2>What’s Missing: The Mathematical Formulation</h2>
+<h3 id="a-call-to-fellow-data-scientists-1">A Call to Fellow Data Scientists</h3>
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>Our framework is conceptually sound and empirically validated. But it lacks a rigorous mathematical formulation.</p>
+</div>
+</div>
+</div>
+<p><strong>What We Need to Formalize:</strong></p>
 <div class="fragment">
 <ol start="3" type="1">
 <li><strong>Optimality conditions</strong> – Given an RQ, can we prove which granularity is optimal?</li>
@@ -601,7 +602,6 @@
 <li>Granularity as RQ-dependent design choice</li>
 <li>Hybrid semantic framework (rules + neural)</li>
 <li>Pragmatic alternative to “black box” paradigm</li>
-<li>Audit artifacts for accountability</li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><strong>What We Still Need</strong></p>
@@ -637,16 +637,7 @@
 <p><strong>Open to collaborate:</strong> Join us in formalizing this framework. Because as data scientists, we owe our users more than black boxes.</p>
 </div>
 </section>
-<section id="questions-discussion" class="slide level2">
-<h2>Questions &amp; Discussion</h2>
-<h3 id="contact">Contact</h3>
-<p><strong>Mario Santoro</strong><br>
-Institute for Applied Mathematics “Mauro Picone”<br>
-Italian National Research Council (CNR)</p>
-<p>📧 mario-santoro@cnr.it<br>
-🔗 https://github.com/santoroma/sds2026</p>
-</section>
-<section id="references" class="slide level2">
+<section id="references" class="slide level2 smaller">
 <h2>References</h2>
 <p>[1] MedGemma Technical Report (2025)<br>
 [2] Badanin et al.&nbsp;- Cross-lingual LLM Benchmarking (2026)<br>
@@ -662,6 +653,17 @@ Italian National Research Council (CNR)</p>
 [12] Xie et al.&nbsp;- Hybrid NLP for Asthma Detection, JMIR AI (2024)<br>
 [13] Yao et al.&nbsp;- LLMs in Non-English Context, JMIR Medical Informatics (2025)<br>
 [14] Zhang et al.&nbsp;- MMTL-ClinicalBERT, Symmetry (2025)</p>
+</section>
+<section id="questions-discussion" class="slide level2">
+<h2>Questions &amp; Discussion</h2>
+<h3 id="thank-you-for-your-attention">Thank you for your attention!</h3>
+<p><br> <br> <br></p>
+<h3 id="contact">Contact</h3>
+<p><strong>Mario Santoro</strong><br>
+Institute for Applied Mathematics “Mauro Picone”<br>
+Italian National Research Council (CNR)</p>
+<p>📧 mario-santoro@cnr.it<br>
+🔗 https://github.com/santoroma/sds2026</p>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const slides = document.querySelectorAll('.reveal .slide');

@@ -30,7 +30,7 @@ format:
 ## Premise {background-image="img/premise.png" background-size="cover" background-opacity=0.25}
 
 
-- I will present a proposal for a design-first framework for explainable/interpreitable use of AI in Italian EHR analysis.
+- I will present a proposal for a design-first framework for explainable/interpretable use of AI in Italian EHR analysis.
 
 - Generalization derived from our empirical works on sentence boundary detection (SBD) and the MISTIC framework for metastases classification on Italian EHRs.
 
@@ -180,7 +180,7 @@ flowchart TD
 
 ::: {.fragment .fade-in}
 
-| Level        | Unit               | Explainability | Semantic Corruption Risk (empirically derived)|
+| Level        | Unit               | Explainability | Semantic Corruption Risk|
 |--------------|--------------------|----------------|-----------------|
 | Document     | Full report        | Low            | Low             |
 | Section      | Header/block       | Medium         | Low-Medium      |
@@ -193,20 +193,10 @@ flowchart TD
 
 ### Semantic Corruption Risk
 
-::: callout-tip
-
-**Two Proposed Measurable Proxies:** 
-
-1. **Performance Degradation Index** – Relative F1-score drop across granularity levels 
-
-2. **Token Truncation Rate** – % of inputs exceeding model token limits (MISTIC: 24.85% of full EHRs exceed 512 tokens vs. 0.02% of sentences) 
-
-
-:::
 
 ::: {.fragment .fade-down}
 
-**Key Insight:** Granularity selection must be **RQ-dependent**. Optimal granularity = **Coarsest unit** that still satisfies the RQ's precision requirements minimizing the Semantic Coruuption Risk.
+**Key Insight:** Granularity selection must be **RQ-dependent**. Optimal granularity = **Coarsest unit** that still satisfies the RQ's precision requirements minimizing the Semantic Corruption Risk.
 
 :::
 
@@ -365,6 +355,17 @@ Our framework is conceptually sound and empirically validated. But it lacks a ri
 
 :::
 
+## What's Missing: The Mathematical Formulation
+
+### A Call to Fellow Data Scientists
+
+::: callout-important
+
+Our framework is conceptually sound and empirically validated. But it lacks a rigorous mathematical formulation.
+:::
+
+**What We Need to Formalize:**
+
 ::: fragment
 
 3.  **Optimality conditions** – Given an RQ, can we prove which granularity is optimal?
@@ -376,7 +377,6 @@ Our framework is conceptually sound and empirically validated. But it lacks a ri
 4.  **Trade-off curves** – Can we express the explainability-risk balance formally?
 
 :::
-
 
 ## Conclusion
 
@@ -390,7 +390,6 @@ Our framework is conceptually sound and empirically validated. But it lacks a ri
 - Granularity as RQ-dependent design choice 
 - Hybrid semantic framework (rules + neural) 
 - Pragmatic alternative to "black box" paradigm 
-- Audit artifacts for accountability
 
 :::
 
@@ -426,18 +425,7 @@ Our framework is conceptually sound and empirically validated. But it lacks a ri
 
 :::
 
-## Questions & Discussion
-
-### Contact
-
-**Mario Santoro**\
-Institute for Applied Mathematics "Mauro Picone"\
-Italian National Research Council (CNR)
-
-📧 mario-santoro\@cnr.it\
-🔗 https://github.com/santoroma/sds2026
-
-## References
+## References {.smaller}
 
 \[1\] MedGemma Technical Report (2025)\
 \[2\] Badanin et al. - Cross-lingual LLM Benchmarking (2026)\
@@ -453,6 +441,25 @@ Italian National Research Council (CNR)
 \[12\] Xie et al. - Hybrid NLP for Asthma Detection, JMIR AI (2024)\
 \[13\] Yao et al. - LLMs in Non-English Context, JMIR Medical Informatics (2025)\
 \[14\] Zhang et al. - MMTL-ClinicalBERT, Symmetry (2025)
+
+## Questions & Discussion
+
+### Thank you for your attention!
+
+<br>
+<br>
+<br>
+
+### Contact
+
+**Mario Santoro**\
+Institute for Applied Mathematics "Mauro Picone"\
+Italian National Research Council (CNR)
+
+📧 mario-santoro\@cnr.it\
+🔗 https://github.com/santoroma/sds2026
+
+
 
 ```{=html}
 <script>
